@@ -1,0 +1,168 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "config.poison-pill.io.poison-pill.io/v1alpha1",
+          "kind": "PoisonPillConfig",
+          "metadata": {
+            "name": "poisonpillconfig-sample"
+          },
+          "spec": {
+            "foo": "bar"
+          }
+        }
+      ]
+    capabilities: Basic Install
+    operators.operatorframework.io/builder: operator-sdk-v1.1.0
+    operators.operatorframework.io/project_layout: go.kubebuilder.io/v2
+  name: poison-pill-manager.v0.0.1
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: PoisonPillConfig is the Schema for the poisonpillconfigs API
+      displayName: Poison Pill Config
+      kind: PoisonPillConfig
+      name: poisonpillconfigs.config.poison-pill.io.poison-pill.io
+      version: v1alpha1
+  description: This poison pill controller is using an alternate mechanism for a node in a cluster to detect its health status and take actions to remediate itself in case of a failure. While not all remediation events can result in the node returning to a healthy state, the proposal does allow surviving parts of the cluster to assume the node has reached a safe state so that it’s workloads can be automatically recovered.
+  displayName: poison-pill
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - config.poison-pill.io.poison-pill.io
+          resources:
+          - poisonpillconfigs
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - config.poison-pill.io.poison-pill.io
+          resources:
+          - poisonpillconfigs/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - authentication.k8s.io
+          resources:
+          - tokenreviews
+          verbs:
+          - create
+        - apiGroups:
+          - authorization.k8s.io
+          resources:
+          - subjectaccessreviews
+          verbs:
+          - create
+        serviceAccountName: default
+      deployments:
+      - name: poison-pill-manager-controller-manager
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              control-plane: controller-manager
+          strategy: {}
+          template:
+            metadata:
+              labels:
+                control-plane: controller-manager
+            spec:
+              containers:
+              - args:
+                - --secure-listen-address=0.0.0.0:8443
+                - --upstream=http://127.0.0.1:8080/
+                - --logtostderr=true
+                - --v=10
+                image: gcr.io/kubebuilder/kube-rbac-proxy:v0.5.0
+                name: kube-rbac-proxy
+                ports:
+                - containerPort: 8443
+                  name: https
+                resources: {}
+              - args:
+                - --metrics-addr=127.0.0.1:8080
+                - --enable-leader-election
+                command:
+                - /manager
+                image: controller:latest
+                name: manager
+                resources:
+                  limits:
+                    cpu: 100m
+                    memory: 30Mi
+                  requests:
+                    cpu: 100m
+                    memory: 20Mi
+              terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps/status
+          verbs:
+          - get
+          - update
+          - patch
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+        serviceAccountName: default
+    strategy: deployment
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - remediation
+  - fencing
+  - poison pill
+  - poison-pill
+  - health
+  - health check
+  - recovery
+  links:
+  - name: Poison Pill Manager
+    url: https://poison-pill-manager.domain
+  maturity: alpha
+  provider:
+    name: Red Hat
+  version: 0.0.1
