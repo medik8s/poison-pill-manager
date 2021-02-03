@@ -2,6 +2,10 @@ domain: poison-pill.io
 layout: go.kubebuilder.io/v2
 projectName: poison-pill-manager
 repo: github.com/poison-pill/poison-pill-manager
+resources:
+- group: config.poison-pill.io
+  kind: PoisonPillConfig
+  version: v1alpha1
 version: 3-alpha
 plugins:
   go.sdk.operatorframework.io/v2-alpha: {}

@@ -1,0 +1,7 @@
+apiVersion: config.poison-pill.io.poison-pill.io/v1alpha1
+kind: PoisonPillConfig
+metadata:
+  name: poisonpillconfig-sample
+spec:
+  # Add fields here
+  foo: bar
