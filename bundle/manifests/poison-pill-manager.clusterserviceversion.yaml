@@ -39,6 +39,24 @@ spec:
       clusterPermissions:
       - rules:
         - apiGroups:
+          - ""
+          resources:
+          - daemonsets
+          verbs:
+          - create
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - apps
+          resources:
+          - daemonsets
+          verbs:
+          - create
+          - get
+          - patch
+          - update
+        - apiGroups:
           - config.poison-pill.io.poison-pill.io
           resources:
           - poisonpillconfigs
@@ -70,7 +88,7 @@ spec:
           - subjectaccessreviews
           verbs:
           - create
-        serviceAccountName: default
+        serviceAccountName: poison-pill-manager-sa
       deployments:
       - name: poison-pill-manager-controller-manager
         spec:
@@ -101,7 +119,7 @@ spec:
                 - --enable-leader-election
                 command:
                 - /manager
-                image: controller:latest
+                image: quay.io/nyehia/poison-pill-manager:latest
                 name: manager
                 resources:
                   limits:
@@ -110,6 +128,7 @@ spec:
                   requests:
                     cpu: 100m
                     memory: 20Mi
+              serviceAccountName: poison-pill-manager-sa
               terminationGracePeriodSeconds: 10
       permissions:
       - rules:
@@ -140,7 +159,7 @@ spec:
           verbs:
           - create
           - patch
-        serviceAccountName: default
+        serviceAccountName: poison-pill-manager-sa
     strategy: deployment
   installModes:
   - supported: false

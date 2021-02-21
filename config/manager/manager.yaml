@@ -22,12 +22,13 @@ spec:
       labels:
         control-plane: controller-manager
     spec:
+      serviceAccountName: poison-pill-manager-sa
       containers:
       - command:
         - /manager
         args:
         - --enable-leader-election
-        image: controller:latest
+        image: quay.io/nyehia/poison-pill-manager:latest
         name: manager
         resources:
           limits:
