@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"log"
+	"path"
 	"regexp"
 	"strings"
 
@@ -35,6 +36,7 @@ import (
 
 // PoisonPillConfigReconciler reconciles a PoisonPillConfig object
 type PoisonPillConfigReconciler struct {
+	installFileFolder string
 	client.Client
 	Log    logr.Logger
 	Scheme *runtime.Scheme
@@ -61,8 +63,8 @@ type PoisonPillConfigReconciler struct {
 func (r *PoisonPillConfigReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	_ = context.Background()
 	_ = r.Log.WithValues("poisonpillconfig", req.NamespacedName)
-
-	content, err := ioutil.ReadFile("install/poison-pill-deamonset-with-rbac.yaml")
+	filePath := path.Join(r.installFileFolder, "install/poison-pill-deamonset-with-rbac.yaml")
+	content, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		r.Log.Error(err, "failed to read ds yaml")
 		return ctrl.Result{}, err
