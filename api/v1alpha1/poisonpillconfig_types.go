@@ -20,16 +20,21 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
 // PoisonPillConfigSpec defines the desired state of PoisonPillConfig
 type PoisonPillConfigSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of PoisonPillConfig. Edit PoisonPillConfig_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// WatchdogFilePath is the watchdog file path that should be available on each node, e.g. /dev/watchdog
+	WatchdogFilePath string `json:"watchdogFilePath,omitempty"`
+
+	// SafeTimeToAssumeNodeRebootedSeconds is the time after which the healthy poison pill
+	// agents will assume the unhealthy node has been rebooted and it is safe to remove the node
+	// from the cluster. This is extremely important. Deleting a node while the workload is still
+	// running there might lead to data corruption and violation of run-once semantic.
+	// +kubebuilder:validation:Minimum=0
+	SafeTimeToAssumeNodeRebootedSeconds int `json:"safeTimeToAssumeNodeRebootedSeconds,omitempty"`
 }
 
 // PoisonPillConfigStatus defines the observed state of PoisonPillConfig
