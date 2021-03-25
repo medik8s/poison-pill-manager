@@ -89,7 +89,7 @@ func (r *PoisonPillConfigReconciler) Reconcile(req ctrl.Request) (ctrl.Result, e
 		}
 	}
 
-	r.Log.Info("reconciled succesfully")
+	r.Log.Info("reconciled successfully")
 	return ctrl.Result{}, nil
 }
 
