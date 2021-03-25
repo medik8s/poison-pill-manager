@@ -67,15 +67,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - config.openshift.io
-  resources:
-  - infrastructures
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - config.poison-pill.io.poison-pill.io
+  - config.medik8s.io
   resources:
   - poisonpillconfigs
   verbs:
@@ -87,13 +79,21 @@ rules:
   - update
   - watch
 - apiGroups:
-  - config.poison-pill.io.poison-pill.io
+  - config.medik8s.io
   resources:
   - poisonpillconfigs/status
   verbs:
   - get
   - patch
   - update
+- apiGroups:
+  - config.openshift.io
+  resources:
+  - infrastructures
+  verbs:
+  - get
+  - list
+  - watch
 - apiGroups:
   - extensions
   resources:

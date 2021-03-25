@@ -6,7 +6,7 @@ Poison Pill Manager is an integration of poison-pill operator with OLM.
 
 Currenly the CRD contains nothing. It's a placholder for future configuration:
 ```yaml
-apiVersion: config.poison-pill.io.poison-pill.io/v1alpha1
+apiVersion: config.medik8s.io/v1alpha1
 kind: PoisonPillConfig
 metadata:
   name: poisonpillconfig-sample

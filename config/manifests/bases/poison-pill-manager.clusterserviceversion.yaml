@@ -15,7 +15,7 @@ spec:
     - description: PoisonPillConfig is the Schema for the poisonpillconfigs API
       displayName: Poison Pill Config
       kind: PoisonPillConfig
-      name: poisonpillconfigs.config.poison-pill.io.poison-pill.io
+      name: poisonpillconfigs.config.medik8s.io
       version: v1alpha1
   description: This poison pill controller is using an alternate mechanism for a node in a cluster to detect its health status and take actions to remediate itself in case of a failure. While not all remediation events can result in the node returning to a healthy state, the proposal does allow surviving parts of the cluster to assume the node has reached a safe state so that it’s workloads can be automatically recovered.
   displayName: poison-pill

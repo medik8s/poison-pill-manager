@@ -17,7 +17,7 @@ var _ = Describe("Controller Test", func() {
 
 	config := &v1alpha1.PoisonPillConfig{}
 	config.Kind = "PoisonPillConfig"
-	config.APIVersion = "config.poison-pill.io.poison-pill.io/v1alpha1"
+	config.APIVersion = "config.medik8s.io/v1alpha1"
 	config.Spec.WatchdogFilePath = "/dev/foo"
 	config.Name = "config-sample"
 	config.Namespace = namespace

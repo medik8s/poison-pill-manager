@@ -4,9 +4,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.3.0
   creationTimestamp: null
-  name: poisonpillconfigs.config.poison-pill.io.poison-pill.io
+  name: poisonpillconfigs.config.medik8s.io
 spec:
-  group: config.poison-pill.io.poison-pill.io
+  group: config.medik8s.io
   names:
     kind: PoisonPillConfig
     listKind: PoisonPillConfigList

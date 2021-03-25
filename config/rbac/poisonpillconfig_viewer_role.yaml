@@ -5,7 +5,7 @@ metadata:
   name: poisonpillconfig-viewer-role
 rules:
 - apiGroups:
-  - config.poison-pill.io.poison-pill.io
+  - config.medik8s.io
   resources:
   - poisonpillconfigs
   verbs:
@@ -13,7 +13,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - config.poison-pill.io.poison-pill.io
+  - config.medik8s.io
   resources:
   - poisonpillconfigs/status
   verbs:

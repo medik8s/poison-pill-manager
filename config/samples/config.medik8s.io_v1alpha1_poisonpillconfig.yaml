@@ -1,4 +1,4 @@
-apiVersion: config.poison-pill.io.poison-pill.io/v1alpha1
+apiVersion: config.medik8s.io/v1alpha1
 kind: PoisonPillConfig
 metadata:
   name: poisonpillconfig-sample

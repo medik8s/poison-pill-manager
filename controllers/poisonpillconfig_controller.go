@@ -42,8 +42,8 @@ type PoisonPillConfigReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-// +kubebuilder:rbac:groups=config.poison-pill.io.poison-pill.io,resources=poisonpillconfigs,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=config.poison-pill.io.poison-pill.io,resources=poisonpillconfigs/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=config.medik8s.io,resources=poisonpillconfigs,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=config.medik8s.io,resources=poisonpillconfigs/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=machine.openshift.io,resources=machines,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=machine.openshift.io,resources=machines/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups="",resources=nodes,verbs=get;list;watch;update;delete;create

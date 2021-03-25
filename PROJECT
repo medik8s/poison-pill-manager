@@ -1,9 +1,9 @@
-domain: poison-pill.io
+domain: medik8s.io
 layout: go.kubebuilder.io/v2
 projectName: poison-pill-manager
-repo: github.com/poison-pill/poison-pill-manager
+repo: github.com/medik8s/poison-pill-manager
 resources:
-- group: config.poison-pill.io
+- group: config
   kind: PoisonPillConfig
   version: v1alpha1
 version: 3-alpha
