@@ -63,6 +63,7 @@ type PoisonPillConfigReconciler struct {
 func (r *PoisonPillConfigReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	_ = context.Background()
 	_ = r.Log.WithValues("poisonpillconfig", req.NamespacedName)
+
 	filePath := path.Join(r.installFileFolder, "install/poison-pill-deamonset-with-rbac.yaml")
 	content, err := ioutil.ReadFile(filePath)
 	if err != nil {
@@ -71,13 +72,6 @@ func (r *PoisonPillConfigReconciler) Reconcile(req ctrl.Request) (ctrl.Result, e
 	}
 	r.Log.Info(string(content))
 
-	//decode := scheme.Codecs.UniversalDeserializer().Decode
-	//ppillDsObj, _, err := decode(content, nil, nil)
-	//
-	//if err != nil {
-	//	r.Log.Error(err, "failed to decode poison pill daemonset yaml")
-	//	return ctrl.Result{}, err
-	//}
 	objects := r.parseK8sYaml(content)
 	for _, obj := range objects {
 		err = r.Client.Create(context.Background(), obj)
@@ -94,12 +88,6 @@ func (r *PoisonPillConfigReconciler) Reconcile(req ctrl.Request) (ctrl.Result, e
 			}
 		}
 	}
-
-	//err = r.Client.Create(context.Background(), ppillDsObj)
-	//if err != nil {
-	//	r.Log.Error(err, "failed to create poison pill daemonset")
-	//	return ctrl.Result{}, err
-	//}
 
 	r.Log.Info("reconciled succesfully")
 	return ctrl.Result{}, nil
